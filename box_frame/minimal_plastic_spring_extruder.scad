@@ -2,7 +2,8 @@ include<spring4.scad>
 
 //NEMA17
 motor_width = 40;
-motor_centre_circle_radius = 22;
+motor_inner_circle_radius = 11;
+motor_outer_circle_radius = 15;
 motor_centre_circle_height_from_square = 2;
 motor_shaft_radius = 2.5;
 
@@ -68,4 +69,13 @@ difference(){translate([0,0,NEMA17_mount_height/2]){cube([8,12,NEMA17_mount_heig
 
 translate([motor_width/2+finger_width/2,0,0]){ring(finger_width/2+3,finger_width/2,height,$fn=resolution);}
 
-
+//arc_of_ring(outer, inner, h, angle /* must be 180 <= angle <= 360 */)
+rotate([0,0,90])arc_of_ring(motor_outer_circle_radius,5,NEMA17_mount_height,250,$fn=resolution);
+difference(){
+translate([0,0,-motor_centre_circle_height_from_square/2])cube([motor_width,motor_width,motor_centre_circle_height_from_square],center=true);
+union(){
+//union(){
+translate([motor_width/4,0,-motor_centre_circle_height_from_square/2])cube([motor_width/2,12,motor_centre_circle_height_from_square],center=true);
+translate([0,0,-NEMA17_mount_height])rotate([0,0,90])arc_of_ring(motor_outer_circle_radius,0,NEMA17_mount_height,250,$fn=resolution);
+translate([motor_width-10,0,-NEMA17_mount_height])cylinder(r=finger_width/2+5,h=NEMA17_mount_height,$fn=resolution);
+};};
