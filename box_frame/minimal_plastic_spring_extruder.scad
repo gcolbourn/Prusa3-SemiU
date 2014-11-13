@@ -42,6 +42,6 @@ translate([length,-2.75,0]){cylinder(r=3,h=height+0.5,$fn=resolution);}
 translate([length,-2.75,height+0.5]){cylinder(r=2,h=5,$fn=resolution);}
 translate([length-2.1,-6.5,0]){cube([width,7.5,height]);}
 
-translate([0,-2.75,0]){ring(4.5,2.5,height-2,$fn=resolution);}
-difference(){translate([0,-7.25,0]){cube([4,9,height-2]);};translate([0,-2.75,0]){cylinder(r=2.5,h=height-2,$fn=resolution);};};
+translate([0,-2.75,0]){ring(5,2.65,height-2,$fn=resolution);}
+difference(){translate([-4,-8.75,0]){cube([8,12,height-2]);};translate([0,-2.75,0]){cylinder(r=2.65,h=height-2,$fn=resolution);};};
 
