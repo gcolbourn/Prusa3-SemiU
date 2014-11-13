@@ -2,6 +2,8 @@ include<spring4.scad>
 
 //NEMA17
 motor_width = 40;
+motor_mount_hole_spacing = 31;
+motor_mount_screw_radius = 3.2/2;//M3
 motor_inner_circle_radius = 11;
 motor_outer_circle_radius = 15;
 motor_centre_circle_height_from_square = 2;
@@ -78,7 +80,7 @@ difference(){translate([0,0,NEMA17_mount_height/2]){cube([8,12,NEMA17_mount_heig
 
 //finger ring pull
 
-translate([motor_width/2+finger_width/2,0,0]){ring(finger_width/2+3,finger_width/2,height,$fn=resolution);}
+translate([motor_width/2+finger_width/2,0,-motor_centre_circle_height_from_square]){ring(finger_width/2+3,finger_width/2,height+motor_centre_circle_height_from_square,$fn=resolution);}
 
 //motor shroud
 
@@ -91,4 +93,8 @@ union(){
 translate([motor_width/4,0,-motor_centre_circle_height_from_square/2])cube([motor_width/2,12,motor_centre_circle_height_from_square],center=true);
 centre_circle();
 translate([motor_width-10,0,-NEMA17_mount_height])cylinder(r=finger_width/2+5,h=NEMA17_mount_height,$fn=resolution);
+translate([motor_mount_hole_spacing/2,motor_mount_hole_spacing/2,-NEMA17_mount_height])cylinder(r=motor_mount_screw_radius,h=NEMA17_mount_height,$fn=resolution);
+translate([motor_mount_hole_spacing/2,-motor_mount_hole_spacing/2,-NEMA17_mount_height])cylinder(r=motor_mount_screw_radius,h=NEMA17_mount_height,$fn=resolution);
+translate([-motor_mount_hole_spacing/2,motor_mount_hole_spacing/2,-NEMA17_mount_height])cylinder(r=motor_mount_screw_radius,h=NEMA17_mount_height,$fn=resolution);
+translate([-motor_mount_hole_spacing/2,-motor_mount_hole_spacing/2,-NEMA17_mount_height])cylinder(r=motor_mount_screw_radius,h=NEMA17_mount_height,$fn=resolution);
 };};
