@@ -20,24 +20,30 @@ bearing_height = 5;
 filament_diameter = 3;
 spring_stretch = 0.75;
 
+//E3D v6 hot end
+hot_end_radius = 8;
+height = hot_end_radius - bearing_height/2;
+
 //misc.
 spring_offset = 2.75;
 vertical_offset_for_rotation = 0.5;
 finger_width = 20;
 
-length = drive_gear_radius - drive_gear_slot_depth + filament_diameter - spring_stretch + bearing_outer_radius;
+spring_length = drive_gear_radius - drive_gear_slot_depth + filament_diameter - spring_stretch + bearing_outer_radius;
 
-echo("(spring) length = ",length);
-
-//length = 10;
 number_of_wiggles = 3;
 // The portion of the circle that appears in each wiggle
 angle = 220; // [180:360]
 // The width of the band of material
 width = 1.5;
-height = 3.5;
+//height = 3.5;
+spring_height = height;
 // Circles are n-gons.  Choose n
 resolution = 100;
+
+echo("spring length = ",spring_length);
+echo("spring height = ",spring_height);
+echo("(filament) height = ",height);
 
 //spring4(length, number_of_wiggles, angle, width, height, $fn=resolution);
 
@@ -47,14 +53,14 @@ resolution = 100;
 
 //spring4(length, number_of_wiggles, angle, width, height, $fn=resolution);
 
-module spring1() {translate([drive_gear_radius,spring_offset,0])spring4(length-drive_gear_radius, number_of_wiggles, angle, width, height, $fn=resolution);};
+module spring1() {translate([drive_gear_radius,spring_offset,0])spring4(spring_length-drive_gear_radius, number_of_wiggles, angle, width, spring_height, $fn=resolution);};
 
 difference(){spring1();cylinder(r=drive_gear_radius,h=height,$fn=resolution);};
 difference(){mirror([0,1,0]){spring1();};cylinder(r=drive_gear_radius,h=height,$fn=resolution);};
 
-translate([length,0,0]){cylinder(r=3,h=height+vertical_offset_for_rotation,$fn=resolution);}
-translate([length,0,height+vertical_offset_for_rotation]){cylinder(r=bearing_inner_radius,h=bearing_height,$fn=resolution);}
-translate([length+3,0,height/2]){cube([10,7.5,height],center=true);}
+translate([spring_length,0,0]){cylinder(r=3,h=height+vertical_offset_for_rotation,$fn=resolution);}
+translate([spring_length,0,height+vertical_offset_for_rotation]){cylinder(r=bearing_inner_radius,h=bearing_height,$fn=resolution);}
+translate([spring_length+3,0,height/2]){cube([10,7.5,height],center=true);}
 
 NEMA17_mount_height = height-drive_gear_bottom_shaft_height+vertical_offset_for_rotation;
 ring(5,motor_shaft_radius+0.2,NEMA17_mount_height,$fn=resolution);
