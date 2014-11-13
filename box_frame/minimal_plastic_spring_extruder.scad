@@ -55,25 +55,33 @@ echo("(filament) height = ",height);
 //spring4(length, number_of_wiggles, angle, width, height, $fn=resolution);
 
 //springs
+
 module spring1() {translate([drive_gear_radius,spring_offset,0])spring4(spring_length-drive_gear_radius, number_of_wiggles, angle, width, spring_height, $fn=resolution);};
 
 difference(){spring1();cylinder(r=drive_gear_radius,h=height,$fn=resolution);};
 difference(){mirror([0,1,0]){spring1();};cylinder(r=drive_gear_radius,h=height,$fn=resolution);};
 
 //bearing mount
+
 translate([spring_length,0,0]){cylinder(r=3,h=height+vertical_offset_for_rotation,$fn=resolution);}
 translate([spring_length,0,height+vertical_offset_for_rotation]){cylinder(r=bearing_inner_radius,h=bearing_height,$fn=resolution);}
-translate([spring_length+3,0,height/2]){cube([10,7.5,height],center=true);}
+
+module centre_circle() {translate([0,0,-NEMA17_mount_height])ring(motor_inner_circle_radius+1,0,NEMA17_mount_height,$fn=resolution);};
+
+difference(){translate([spring_length+3,0,(height-motor_centre_circle_height_from_square)/2]){cube([10,7.5,height+motor_centre_circle_height_from_square],center=true);};centre_circle();};
 
 //motor/drive gear mount 
+
 NEMA17_mount_height = height-drive_gear_bottom_shaft_height+vertical_offset_for_rotation;
 ring(5,motor_shaft_radius+0.2,NEMA17_mount_height,$fn=resolution);
 difference(){translate([0,0,NEMA17_mount_height/2]){cube([8,12,NEMA17_mount_height],center=true);};cylinder(r=2.7,h=NEMA17_mount_height,$fn=resolution);};
 
 //finger ring pull
+
 translate([motor_width/2+finger_width/2,0,0]){ring(finger_width/2+3,finger_width/2,height,$fn=resolution);}
 
 //motor shroud
+
 //arc_of_ring(outer, inner, h, angle /* must be 180 <= angle <= 360 */)
 rotate([0,0,90])arc_of_ring(motor_outer_circle_radius,5,NEMA17_mount_height,250,$fn=resolution);
 difference(){
@@ -81,6 +89,6 @@ translate([0,0,-motor_centre_circle_height_from_square/2])cube([motor_width,moto
 union(){
 //union(){
 translate([motor_width/4,0,-motor_centre_circle_height_from_square/2])cube([motor_width/2,12,motor_centre_circle_height_from_square],center=true);
-translate([0,0,-NEMA17_mount_height])rotate([0,0,90])ring(motor_inner_circle_radius+1,0,NEMA17_mount_height,$fn=resolution);
+centre_circle();
 translate([motor_width-10,0,-NEMA17_mount_height])cylinder(r=finger_width/2+5,h=NEMA17_mount_height,$fn=resolution);
 };};
