@@ -1,20 +1,33 @@
 include<spring4.scad>
 
+//NEMA17
+motor_width = 40;
+motor_centre_circle_radius = 22;
+motor_centre_circle_height_from_square = 2;
 motor_shaft_radius = 2.5;
-drive_gear_radius = 4.5;//Mk8
-bearing_radius = 6.5;//624ZZ
+
+//Mk8
+drive_gear_radius = 4.5;
 drive_gear_slot_depth = 1;
 drive_gear_bottom_shaft_height = 1.5;
+
+//624ZZ
+bearing_outer_radius = 6.5;
+bearing_inner_radius = 2;
+bearing_height = 5;
+
+//filament
 filament_diameter = 3;
 spring_stretch = 0.75;
+
+//misc.
 spring_offset = 2.75;
 vertical_offset_for_rotation = 0.5;
 finger_width = 20;
-motor_width = 40;
 
-length = drive_gear_radius - drive_gear_slot_depth + filament_diameter - spring_stretch + bearing_radius;
-//length=4.5-1.5+3-0.5+6.5;
-echo("length = ",length);
+length = drive_gear_radius - drive_gear_slot_depth + filament_diameter - spring_stretch + bearing_outer_radius;
+
+echo("(spring) length = ",length);
 
 //length = 10;
 number_of_wiggles = 3;
