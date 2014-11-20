@@ -106,4 +106,17 @@ translate([-motor_mount_hole_spacing/2,-motor_mount_hole_spacing/2,-NEMA17_mount
 
 //filament
 translate([drive_gear_radius+filament_diameter/2,0,filament_height])
-rotate([90,0,0])cylinder(r=filament_diameter/2,h=50,$fn=resolution,center=true);
+rotate([90,0,0])cylinder(r=filament_diameter/2,h=2*motor_width,$fn=resolution,center=true);
+
+//filment guide
+difference(){
+	union(){
+	translate([drive_gear_radius+filament_diameter/2,motor_width/2,filament_height])
+	rotate([90,0,0])cylinder(r=2+filament_diameter/1.8,h=motor_width/2-bearing_outer_radius,$fn=resolution);
+	translate([drive_gear_radius+filament_diameter/2-(2+filament_diameter/1.8),bearing_outer_radius,0])
+	cube([2*(2+filament_diameter/1.8),motor_width/2-bearing_outer_radius,filament_height]);};
+translate([drive_gear_radius+filament_diameter/2,motor_width,filament_height])
+rotate([90,0,0])
+cylinder(r=filament_diameter/1.8,h=2*motor_width,$fn=resolution);}
+
+
