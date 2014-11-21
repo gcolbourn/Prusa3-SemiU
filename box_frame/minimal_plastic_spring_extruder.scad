@@ -12,6 +12,7 @@ motor_shaft_radius = 2.5;
 //Mk8
 drive_gear_radius = 4.5;
 drive_gear_slot_depth = 1;
+drive_gear_teeth_depth = 0.25;
 drive_gear_slot_width = 4.5;
 drive_gear_bottom_shaft_height = 1.5;
 
@@ -22,7 +23,7 @@ bearing_height = 5;
 
 //filament
 filament_diameter = 3;
-spring_stretch = 0.75;
+spring_stretch = 0.5;
 
 //E3D v6 hot end
 hot_end_radius = 8;
@@ -46,7 +47,8 @@ vertical_offset_for_rotation = 0.5;
 finger_width = 20;
 filament_guide_above_motor=6;
 
-spring_length = drive_gear_radius - drive_gear_slot_depth + filament_diameter - spring_stretch + bearing_outer_radius;
+filament_x = drive_gear_radius - drive_gear_slot_depth  - drive_gear_teeth_depth + filament_diameter/2;
+spring_length = filament_x + filament_diameter/2 - spring_stretch + bearing_outer_radius;
 
 number_of_wiggles = 3;
 // The portion of the circle that appears in each wiggle
@@ -61,7 +63,7 @@ resolution = 20;
 echo("spring length = ",spring_length);
 echo("spring height = ",spring_height);
 echo("filament height = ",filament_height);
-
+echo("filament x position = ",filament_x);
 //spring4(length, number_of_wiggles, angle, width, height, $fn=resolution);
 
 //difference(){
@@ -112,34 +114,35 @@ translate([-motor_mount_hole_spacing/2,motor_mount_hole_spacing/2,-NEMA17_mount_
 translate([-motor_mount_hole_spacing/2,-motor_mount_hole_spacing/2,-NEMA17_mount_height])cylinder(r=motor_mount_screw_radius,h=NEMA17_mount_height,$fn=resolution);
 };};
 
+//module filament_x(y) {translate([drive_gear_radius+filament_diameter/2,0,0])y};
 //filament
-translate([drive_gear_radius+filament_diameter/2,0,filament_height])
+translate([filament_x,0,filament_height])
 rotate([90,0,0])cylinder(r=filament_diameter/2,h=2*motor_width,$fn=resolution,center=true);
 
 ////filment guide
 difference(){
 	union(){
-	translate([drive_gear_radius+filament_diameter/2,motor_width/2+filament_guide_above_motor,filament_height])
+	translate([filament_x,motor_width/2+filament_guide_above_motor,filament_height])
 	rotate([90,0,0])cylinder(r=2+filament_diameter/1.8,h=motor_width/2-bearing_outer_radius+filament_guide_above_motor,$fn=resolution);
-	translate([drive_gear_radius+filament_diameter/2-(2+filament_diameter/1.8),bearing_outer_radius,0])
+	translate([filament_x-(2+filament_diameter/1.8),bearing_outer_radius,0])
 	cube([2*(2+filament_diameter/1.8),motor_width/2-bearing_outer_radius+filament_guide_above_motor,filament_height]);};
-translate([drive_gear_radius+filament_diameter/2,motor_width,filament_height])
+translate([filament_x,motor_width,filament_height])
 rotate([90,0,0])
 cylinder(r=filament_diameter/1.8,h=2*motor_width,$fn=resolution);
 //dust box
-translate([drive_gear_radius+filament_diameter/2,motor_width/2-dustbox_width/2+dustbox_above_motor,filament_height])
+translate([filament_x,motor_width/2-dustbox_width/2+dustbox_above_motor,filament_height])
 cube([dustbox_width-dustbox_wall_thickness*2,dustbox_width-dustbox_wall_thickness*2,dustbox_height],center=true);
 };
-translate([drive_gear_radius+filament_diameter/2,motor_width/2-dustbox_width/2+dustbox_above_motor,filament_height])
+translate([filament_x,motor_width/2-dustbox_width/2+dustbox_above_motor,filament_height])
 difference(){
 cube([dustbox_width,dustbox_width,dustbox_height],center=true);
 cube([dustbox_width-dustbox_wall_thickness*2,dustbox_width-dustbox_wall_thickness*2,dustbox_height],center=true);};
 
-translate([drive_gear_radius+filament_diameter/2,motor_width/2-dustbox_width/2+dustbox_above_motor,NEMA17_mount_height/2])
+translate([filament_x,motor_width/2-dustbox_width/2+dustbox_above_motor,NEMA17_mount_height/2])
 cube([dustbox_width,dustbox_width,NEMA17_mount_height],center=true);
 
-translate([drive_gear_radius+filament_diameter/2,motor_width/2+dustbox_above_motor/2,-motor_centre_circle_height_from_square/2])cube([dustbox_width,dustbox_above_motor,motor_centre_circle_height_from_square],center=true);
-translate([drive_gear_radius+filament_diameter/2,motor_width/2+filament_guide_above_motor/2,-motor_centre_circle_height_from_square/2])cube([2*(2+filament_diameter/1.8),filament_guide_above_motor,motor_centre_circle_height_from_square],center=true);
+translate([filament_x,motor_width/2+dustbox_above_motor/2,-motor_centre_circle_height_from_square/2])cube([dustbox_width,dustbox_above_motor,motor_centre_circle_height_from_square],center=true);
+translate([filament_x,motor_width/2+filament_guide_above_motor/2,-motor_centre_circle_height_from_square/2])cube([2*(2+filament_diameter/1.8),filament_guide_above_motor,motor_centre_circle_height_from_square],center=true);
 
 
 
