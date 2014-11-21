@@ -204,5 +204,5 @@ cube([2*(hot_end_radius+0.2)+hot_end_mount_wall_width*2,motor_width/2-bearing_ou
 
 //thin sheet to make printing without support possible
 difference(){
-cube([motor_outer_circle_radius*2,motor_outer_circle_radius*2,0.3],center=true);
+cylinder(r=motor_outer_circle_radius,h=0.3,center=true);
 cable_tie_hole();};
