@@ -123,9 +123,7 @@ translate([motor_mount_hole_spacing/2,-motor_mount_hole_spacing/2,-NEMA17_mount_
 translate([-motor_mount_hole_spacing/2,motor_mount_hole_spacing/2,-NEMA17_mount_height])cylinder(r=motor_mount_screw_radius,h=NEMA17_mount_height,$fn=resolution);
 translate([-motor_mount_hole_spacing/2,-motor_mount_hole_spacing/2,-NEMA17_mount_height])cylinder(r=motor_mount_screw_radius,h=NEMA17_mount_height,$fn=resolution);
 //cable tie hole
-translate([filament_x,-bearing_outer_radius - gap_between_hot_end_and_bearing - hot_end_top_lip - (hot_end_inner_gap-cable_tie_hole_width)/2 + 0.2,filament_height])
-rotate([90,0,0])
-ring(hot_end_inner_radius+cable_tie_hole_wall_thickness+cable_tie_hole_depth,hot_end_inner_radius+cable_tie_hole_wall_thickness,cable_tie_hole_width,$fn=resolution);
+cable_tie_hole();
 };};
 
 //filament
@@ -161,6 +159,9 @@ cube([dustbox_width,dustbox_width,NEMA17_mount_height],center=true);
 translate([filament_x,motor_width/2+dustbox_above_motor/2,-motor_centre_circle_height_from_square/2])cube([dustbox_width,dustbox_above_motor,motor_centre_circle_height_from_square],center=true);
 translate([filament_x,motor_width/2+filament_guide_above_motor/2,-motor_centre_circle_height_from_square/2])cube([2*(2+filament_diameter/1.8),filament_guide_above_motor,motor_centre_circle_height_from_square],center=true);
 
+//cable tie hole
+module cable_tie_hole() {translate([filament_x,-bearing_outer_radius - gap_between_hot_end_and_bearing - hot_end_top_lip - (hot_end_inner_gap-cable_tie_hole_width)/2 + 0.2,filament_height])rotate([90,0,0])
+ring(hot_end_inner_radius+cable_tie_hole_wall_thickness+cable_tie_hole_depth,hot_end_inner_radius+cable_tie_hole_wall_thickness,cable_tie_hole_width,$fn=resolution);};
 
 //hot end mount (1 block take away 6 cylinders)
 difference(){
@@ -192,9 +193,7 @@ cube([2*(hot_end_radius+0.2)+hot_end_mount_wall_width*2,motor_width/2-bearing_ou
 		cylinder(r=hot_end_radius+0.2,h=motor_width/2-hot_end_top_lip-hot_end_inner_gap+2,$fn=resolution);		
 
 		//cable tie hole
-		translate([filament_x,-bearing_outer_radius - gap_between_hot_end_and_bearing - hot_end_top_lip - (hot_end_inner_gap-cable_tie_hole_width)/2 + 0.2,filament_height])
-		rotate([90,0,0])
-		ring(hot_end_inner_radius+cable_tie_hole_wall_thickness+cable_tie_hole_depth,hot_end_inner_radius+cable_tie_hole_wall_thickness,cable_tie_hole_width,$fn=resolution);
+		cable_tie_hole()
 		
 		//mount screw hole
 		translate([motor_mount_hole_spacing/2,-motor_mount_hole_spacing/2,0])
@@ -204,4 +203,6 @@ cube([2*(hot_end_radius+0.2)+hot_end_mount_wall_width*2,motor_width/2-bearing_ou
 };
 
 //thin sheet to make printing without support possible
+difference(){
 cube([motor_outer_circle_radius*2,motor_outer_circle_radius*2,0.3],center=true);
+cable_tie_hole();};
