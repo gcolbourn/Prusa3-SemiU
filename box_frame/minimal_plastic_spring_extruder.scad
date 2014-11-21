@@ -153,29 +153,8 @@ cube([dustbox_width,dustbox_width,NEMA17_mount_height],center=true);
 translate([filament_x,motor_width/2+dustbox_above_motor/2,-motor_centre_circle_height_from_square/2])cube([dustbox_width,dustbox_above_motor,motor_centre_circle_height_from_square],center=true);
 translate([filament_x,motor_width/2+filament_guide_above_motor/2,-motor_centre_circle_height_from_square/2])cube([2*(2+filament_diameter/1.8),filament_guide_above_motor,motor_centre_circle_height_from_square],center=true);
 
-//hot end mount
-//union(){
-//	difference(){
-//		translate([filament_x-(hot_end_radius+0.2+hot_end_mount_wall_width),-motor_width/2,0])
-//		cube([2*(hot_end_radius+0.2)+hot_end_mount_wall_width*2,motor_width/2-bearing_outer_radius-1,filament_height+hot_end_mount_above_semicircle]);
-//		union(){
-//		translate([filament_x,-bearing_outer_radius+1,filament_height])
-//		rotate([90,0,0])
-//		cylinder(r=hot_end_radius+0.2,h=motor_width/2-bearing_outer_radius+2,$fn=resolution);
-//		translate([motor_mount_hole_spacing/2,-motor_mount_hole_spacing/2,0])cylinder(r=motor_mount_screw_head_radius,h=filament_height+hot_end_mount_above_semicircle,$fn=resolution);};};
-//difference(){
-//translate([filament_x,-bearing_outer_radius-hot_end_top_lip,filament_height])
-//rotate([90,0,0])
-//ring(hot_end_radius+0.2,hot_end_inner_radius+0.2,hot_end_inner_gap-0.2,$fn=resolution);
-//translate([filament_x-(hot_end_radius+0.2+hot_end_mount_wall_width),-motor_width/2,filament_height+hot_end_mount_above_semicircle])
-//cube([2*(hot_end_radius+0.2)+hot_end_mount_wall_width*2,motor_width/2-bearing_outer_radius-1,50]);
-//translate([filament_x,-bearing_outer_radius - hot_end_top_lip - (hot_end_inner_gap-cable_tie_hole_width)/2,filament_height])
-//rotate([90,0,0])
-//ring(hot_end_inner_radius+cable_tie_hole_wall_thickness+cable_tie_hole_depth,hot_end_inner_radius+cable_tie_hole_wall_thickness,cable_tie_hole_width,$fn=resolution);
-//};
-//};
 
-//hot end mount (simplified = 1 block take away 6 cylinders)
+//hot end mount (1 block take away 6 cylinders)
 difference(){
 
 //main block
