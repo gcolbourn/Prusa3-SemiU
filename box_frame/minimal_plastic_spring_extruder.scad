@@ -198,4 +198,5 @@ cube([2*(hot_end_radius+0.2)+hot_end_mount_wall_width*2,motor_width/2-bearing_ou
 };
 };
 
-//cylinder(r=motor_inner_circle_radius,h=2,$fn=resolution);
+//thin sheet to make printing without support possible
+cube([motor_outer_circle_radius*2,motor_outer_circle_radius*2,0.3],center=true);
