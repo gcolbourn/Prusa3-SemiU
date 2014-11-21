@@ -46,7 +46,8 @@ NEMA17_mount_height = filament_height-drive_gear_bottom_shaft_height-drive_gear_
 
 //dust box
 dustbox_width = 15;
-dustbox_height = 2*(filament_height-NEMA17_mount_height);
+//dustbox_height = 2*(filament_height-NEMA17_mount_height);
+dustbox_height = 12;
 dustbox_wall_thickness=1.5;
 dustbox_above_motor=5;
 
@@ -73,6 +74,8 @@ echo("spring length = ",spring_length);
 echo("spring height = ",spring_height);
 echo("filament height = ",filament_height);
 echo("filament x position = ",filament_x);
+echo("NEMA17 mount height = ",NEMA17_mount_height);
+echo("dustbox height = ",dustbox_height);
 //spring4(length, number_of_wiggles, angle, width, height, $fn=resolution);
 
 //difference(){
@@ -107,10 +110,12 @@ difference(){translate([0,0,NEMA17_mount_height/2]){cube([8,15,NEMA17_mount_heig
 translate([motor_width/2+finger_width/2,0,-motor_centre_circle_height_from_square]){ring(finger_width/2+3,finger_width/2,spring_height+motor_centre_circle_height_from_square,$fn=resolution);}
 
 //motor shroud
-
+difference(){
 //arc_of_ring(outer, inner, h, angle /* must be 180 <= angle <= 360 */)
 rotate([0,0,65])arc_of_ring(motor_outer_circle_radius,drive_gear_radius,NEMA17_mount_height,195,$fn=resolution);
 //rotate([0,0,90])arc_of_ring(motor_outer_circle_radius,drive_gear_radius,NEMA17_mount_height,240,$fn=resolution);
+//cut out dustbox
+dustbox_middle();};
 difference(){
 translate([0,0,-motor_centre_circle_height_from_square/2])cube([motor_width,motor_width,motor_centre_circle_height_from_square],center=true);
 union(){
@@ -131,6 +136,9 @@ cable_tie_hole();
 //translate([filament_x,0,filament_height])
 //rotate([90,0,0])cylinder(r=filament_diameter/2,h=2*motor_width,$fn=resolution,center=true);
 
+module dustbox_middle() {translate([filament_x,motor_width/2-dustbox_width/2+dustbox_above_motor,dustbox_height/2])
+cube([dustbox_width-dustbox_wall_thickness*2,dustbox_width-dustbox_wall_thickness*2,dustbox_height],center=true);};
+
 ////filment guide
 difference(){
 	union(){
@@ -141,21 +149,20 @@ difference(){
 translate([filament_x,motor_width,filament_height])
 rotate([90,0,0])
 cylinder(r=filament_diameter/1.8,h=2*motor_width,$fn=resolution);
-//dust box
-translate([filament_x,motor_width/2-dustbox_width/2+dustbox_above_motor,filament_height])
-cube([dustbox_width-dustbox_wall_thickness*2,dustbox_width-dustbox_wall_thickness*2,dustbox_height],center=true);
+//dust box middle
+dustbox_middle();
 };
+//dust box
 difference(){
-translate([filament_x,motor_width/2-dustbox_width/2+dustbox_above_motor,filament_height])
+translate([filament_x,motor_width/2-dustbox_width/2+dustbox_above_motor,dustbox_height/2])
 cube([dustbox_width,dustbox_width,dustbox_height],center=true);
-translate([filament_x,motor_width/2-dustbox_width/2+dustbox_above_motor,filament_height])
-cube([dustbox_width-dustbox_wall_thickness*2,dustbox_width-dustbox_wall_thickness*2,dustbox_height],center=true);
+dustbox_middle();
 translate([filament_x,motor_width,filament_height])
 rotate([90,0,0])
 cylinder(r=filament_diameter/1.8,h=2*motor_width,$fn=resolution);};
 
-translate([filament_x,motor_width/2-dustbox_width/2+dustbox_above_motor,NEMA17_mount_height/2])
-cube([dustbox_width,dustbox_width,NEMA17_mount_height],center=true);
+//translate([filament_x,motor_width/2-dustbox_width/2+dustbox_above_motor,NEMA17_mount_height/2])
+//cube([dustbox_width,dustbox_width,NEMA17_mount_height],center=true);
 
 translate([filament_x,motor_width/2+dustbox_above_motor/2,-motor_centre_circle_height_from_square/2])cube([dustbox_width,dustbox_above_motor,motor_centre_circle_height_from_square],center=true);
 translate([filament_x,motor_width/2+filament_guide_above_motor/2,-motor_centre_circle_height_from_square/2])cube([2*(2+filament_diameter/1.8),filament_guide_above_motor,motor_centre_circle_height_from_square],center=true);
