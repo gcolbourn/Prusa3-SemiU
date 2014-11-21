@@ -4,6 +4,7 @@ include<spring4.scad>
 motor_width = 40;
 motor_mount_hole_spacing = 31;
 motor_mount_screw_radius = 3.2/2;//M3
+motor_mount_screw_head_radius = 2.75;//M3
 motor_inner_circle_radius = 11;
 motor_outer_circle_radius = 15;
 motor_centre_circle_height_from_square = 2;
@@ -31,6 +32,8 @@ hot_end_inner_radius = 6;
 hot_end_top_lip = 3.75;
 hot_end_inner_gap = 6;
 hot_end_mount_height = 12.75;
+hot_end_mount_wall_width = 4;
+hot_end_mount_above_semicircle = 5;
 
 filament_height = hot_end_radius;
 NEMA17_mount_height = filament_height-drive_gear_bottom_shaft_height-drive_gear_slot_width/2;
@@ -144,6 +147,24 @@ cube([dustbox_width,dustbox_width,NEMA17_mount_height],center=true);
 translate([filament_x,motor_width/2+dustbox_above_motor/2,-motor_centre_circle_height_from_square/2])cube([dustbox_width,dustbox_above_motor,motor_centre_circle_height_from_square],center=true);
 translate([filament_x,motor_width/2+filament_guide_above_motor/2,-motor_centre_circle_height_from_square/2])cube([2*(2+filament_diameter/1.8),filament_guide_above_motor,motor_centre_circle_height_from_square],center=true);
 
-
-
+//hot end mount
+union(){
+	difference(){
+		union(){
+//		translate([filament_x,-motor_width/2,filament_height])
+//		rotate([90,0,0])cylinder(r=hot_end_radius+0.2,h=motor_width/2-bearing_outer_radius,$fn=resolution);
+		translate([filament_x-(hot_end_radius+0.2+hot_end_mount_wall_width),-motor_width/2,0])
+		cube([2*(hot_end_radius+0.2)+hot_end_mount_wall_width*2,motor_width/2-bearing_outer_radius-1,filament_height+hot_end_mount_above_semicircle]);};
+		union(){
+		translate([filament_x,-bearing_outer_radius+1,filament_height])
+		rotate([90,0,0])
+		cylinder(r=hot_end_radius+0.2,h=motor_width/2-bearing_outer_radius+2,$fn=resolution);
+		translate([motor_mount_hole_spacing/2,-motor_mount_hole_spacing/2,0])cylinder(r=motor_mount_screw_head_radius,h=filament_height+hot_end_mount_above_semicircle,$fn=resolution);};};
+difference(){
+translate([filament_x,-bearing_outer_radius-hot_end_top_lip,filament_height])
+rotate([90,0,0])
+ring(hot_end_radius+0.2,hot_end_inner_radius+0.2,hot_end_inner_gap-0.2,$fn=resolution);
+translate([filament_x-(hot_end_radius+0.2+hot_end_mount_wall_width),-motor_width/2,filament_height+hot_end_mount_above_semicircle])
+cube([2*(hot_end_radius+0.2)+hot_end_mount_wall_width*2,motor_width/2-bearing_outer_radius-1,filament_height+hot_end_mount_above_semicircle]);};
+}
 
