@@ -116,11 +116,16 @@ union(){
 //union(){
 translate([motor_width/4,0,-motor_centre_circle_height_from_square/2])cube([motor_width/2,12,motor_centre_circle_height_from_square],center=true);
 centre_circle();
+//motor mount holes
 translate([motor_width-10,0,-NEMA17_mount_height])cylinder(r=finger_width/2+5,h=NEMA17_mount_height,$fn=resolution);
 translate([motor_mount_hole_spacing/2,motor_mount_hole_spacing/2,-NEMA17_mount_height])cylinder(r=motor_mount_screw_radius,h=NEMA17_mount_height,$fn=resolution);
 translate([motor_mount_hole_spacing/2,-motor_mount_hole_spacing/2,-NEMA17_mount_height])cylinder(r=motor_mount_screw_radius,h=NEMA17_mount_height,$fn=resolution);
 translate([-motor_mount_hole_spacing/2,motor_mount_hole_spacing/2,-NEMA17_mount_height])cylinder(r=motor_mount_screw_radius,h=NEMA17_mount_height,$fn=resolution);
 translate([-motor_mount_hole_spacing/2,-motor_mount_hole_spacing/2,-NEMA17_mount_height])cylinder(r=motor_mount_screw_radius,h=NEMA17_mount_height,$fn=resolution);
+//cable tie hole
+translate([filament_x,-bearing_outer_radius - gap_between_hot_end_and_bearing - hot_end_top_lip - (hot_end_inner_gap-cable_tie_hole_width)/2 + 0.2,filament_height])
+rotate([90,0,0])
+ring(hot_end_inner_radius+cable_tie_hole_wall_thickness+cable_tie_hole_depth,hot_end_inner_radius+cable_tie_hole_wall_thickness,cable_tie_hole_width,$fn=resolution);
 };};
 
 //filament
