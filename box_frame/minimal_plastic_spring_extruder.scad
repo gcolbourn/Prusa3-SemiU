@@ -4,7 +4,7 @@ include<spring4.scad>
 motor_width = 40;
 motor_mount_hole_spacing = 31;
 motor_mount_screw_radius = 3.2/2;//M3
-motor_mount_screw_head_radius = 2.75;//M3
+motor_mount_screw_head_radius = 2.85;//M3 dome
 motor_inner_circle_radius = 11;
 motor_outer_circle_radius = 15;
 motor_centre_circle_height_from_square = 2;
@@ -67,7 +67,7 @@ width = 1.5;
 //height = 3.5;
 spring_height = 5;
 // Circles are n-gons.  Choose n
-resolution = 20;
+resolution = 100;
 
 echo("spring length = ",spring_length);
 echo("spring height = ",spring_height);
@@ -110,6 +110,7 @@ translate([motor_width/2+finger_width/2,0,-motor_centre_circle_height_from_squar
 
 //arc_of_ring(outer, inner, h, angle /* must be 180 <= angle <= 360 */)
 rotate([0,0,65])arc_of_ring(motor_outer_circle_radius,drive_gear_radius,NEMA17_mount_height,195,$fn=resolution);
+//rotate([0,0,90])arc_of_ring(motor_outer_circle_radius,drive_gear_radius,NEMA17_mount_height,240,$fn=resolution);
 difference(){
 translate([0,0,-motor_centre_circle_height_from_square/2])cube([motor_width,motor_width,motor_centre_circle_height_from_square],center=true);
 union(){
@@ -193,16 +194,17 @@ cube([2*(hot_end_radius+0.2)+hot_end_mount_wall_width*2,motor_width/2-bearing_ou
 		cylinder(r=hot_end_radius+0.2,h=motor_width/2-hot_end_top_lip-hot_end_inner_gap+2,$fn=resolution);		
 
 		//cable tie hole
-		cable_tie_hole()
+		cable_tie_hole();
 		
 		//mount screw hole
-		translate([motor_mount_hole_spacing/2,-motor_mount_hole_spacing/2,0])
-		cylinder(r=motor_mount_screw_head_radius,h=filament_height+hot_end_mount_above_semicircle,$fn=resolution);
-
+		translate([motor_mount_hole_spacing/2,-motor_mount_hole_spacing/2,0]){
+		cylinder(r=motor_mount_screw_head_radius,h=7,$fn=resolution);
+		//hole for alan key
+		cylinder(r=1.2,h=filament_height+hot_end_mount_above_semicircle,$fn=resolution);};
 };
 };
 
 //thin sheet to make printing without support possible
-difference(){
-cylinder(r=motor_outer_circle_radius,h=0.3,center=true);
-cable_tie_hole();};
+//difference(){
+//cylinder(r=motor_outer_circle_radius,h=0.3,center=true);
+//cable_tie_hole();};
