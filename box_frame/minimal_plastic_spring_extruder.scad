@@ -45,16 +45,16 @@ filament_height = hot_end_radius;
 NEMA17_mount_height = filament_height-drive_gear_bottom_shaft_height-drive_gear_slot_width/2;
 
 //dust box
-dustbox_width = 12;
+dustbox_width = 15;
 dustbox_height = 2*(filament_height-NEMA17_mount_height);
 dustbox_wall_thickness=1.5;
-dustbox_above_motor=2;
+dustbox_above_motor=5;
 
 //misc.
 spring_offset = 2.75;
 vertical_offset_for_rotation = 0.5;
 finger_width = 20;
-filament_guide_above_motor=6;
+filament_guide_above_motor = dustbox_above_motor + 3.5;
 
 filament_x = drive_gear_radius - drive_gear_slot_depth  - drive_gear_teeth_depth + filament_diameter/2;
 spring_length = filament_x + filament_diameter/2 - spring_stretch + bearing_outer_radius;
