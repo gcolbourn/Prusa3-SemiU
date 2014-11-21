@@ -100,7 +100,7 @@ difference(){translate([spring_length+3,0,(spring_height-motor_centre_circle_hei
 //motor/drive gear mount 
 
 ring(5,motor_shaft_radius+0.2,NEMA17_mount_height,$fn=resolution);
-difference(){translate([0,0,NEMA17_mount_height/2]){cube([8,12,NEMA17_mount_height],center=true);};cylinder(r=2.7,h=NEMA17_mount_height,$fn=resolution);};
+difference(){translate([0,0,NEMA17_mount_height/2]){cube([8,15,NEMA17_mount_height],center=true);};cylinder(r=2.7,h=NEMA17_mount_height,$fn=resolution);};
 
 //finger ring pull
 
@@ -109,7 +109,7 @@ translate([motor_width/2+finger_width/2,0,-motor_centre_circle_height_from_squar
 //motor shroud
 
 //arc_of_ring(outer, inner, h, angle /* must be 180 <= angle <= 360 */)
-rotate([0,0,90])arc_of_ring(motor_outer_circle_radius,5,NEMA17_mount_height,250,$fn=resolution);
+rotate([0,0,65])arc_of_ring(motor_outer_circle_radius,drive_gear_radius,NEMA17_mount_height,195,$fn=resolution);
 difference(){
 translate([0,0,-motor_centre_circle_height_from_square/2])cube([motor_width,motor_width,motor_centre_circle_height_from_square],center=true);
 union(){
@@ -195,3 +195,4 @@ cube([2*(hot_end_radius+0.2)+hot_end_mount_wall_width*2,motor_width/2-bearing_ou
 };
 };
 
+//cylinder(r=motor_inner_circle_radius,h=2,$fn=resolution);
