@@ -33,7 +33,12 @@ hot_end_top_lip = 3.75;
 hot_end_inner_gap = 6;
 hot_end_mount_height = 12.75;
 hot_end_mount_wall_width = 4;
-hot_end_mount_above_semicircle = 5;
+hot_end_mount_above_semicircle = 3;
+
+cable_tie_hole_width = 3.5;
+cable_tie_hole_depth = 1.5;
+cable_tie_hole_wall_thickness = 1.5;
+
 
 filament_height = hot_end_radius;
 NEMA17_mount_height = filament_height-drive_gear_bottom_shaft_height-drive_gear_slot_width/2;
@@ -165,6 +170,15 @@ translate([filament_x,-bearing_outer_radius-hot_end_top_lip,filament_height])
 rotate([90,0,0])
 ring(hot_end_radius+0.2,hot_end_inner_radius+0.2,hot_end_inner_gap-0.2,$fn=resolution);
 translate([filament_x-(hot_end_radius+0.2+hot_end_mount_wall_width),-motor_width/2,filament_height+hot_end_mount_above_semicircle])
-cube([2*(hot_end_radius+0.2)+hot_end_mount_wall_width*2,motor_width/2-bearing_outer_radius-1,filament_height+hot_end_mount_above_semicircle]);};
-}
+cube([2*(hot_end_radius+0.2)+hot_end_mount_wall_width*2,motor_width/2-bearing_outer_radius-1,50]);
+translate([filament_x,-bearing_outer_radius - hot_end_top_lip - (hot_end_inner_gap-cable_tie_hole_width)/2,filament_height])
+rotate([90,0,0])
+ring(hot_end_inner_radius+cable_tie_hole_wall_thickness+cable_tie_hole_depth,hot_end_inner_radius+cable_tie_hole_wall_thickness,cable_tie_hole_width,$fn=resolution);
+};
+};
 
+//rotate([90,0,0])
+//ring(hot_end_inner_radius+cable_tie_hole_wall_thickness+cable_tie_hole_depth,hot_end_inner_radius+cable_tie_hole_wall_thickness,cable_tie_hole_width,$fn=resolution);
+//
+//
+//
