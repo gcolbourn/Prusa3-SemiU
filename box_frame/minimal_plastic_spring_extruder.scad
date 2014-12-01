@@ -31,6 +31,7 @@ hot_end_radius = 8;
 hot_end_inner_radius = 6;
 hot_end_top_lip = 3.75;
 hot_end_inner_gap = 6;
+hot_end_bottom_lip = 3;
 hot_end_mount_height = 12.75;
 hot_end_mount_wall_width = 4;
 hot_end_mount_above_semicircle = 3;
@@ -68,7 +69,7 @@ width = 1.5;
 //height = 3.5;
 spring_height = 5;
 // Circles are n-gons.  Choose n
-resolution = 100;
+resolution = 10;
 
 echo("spring length = ",spring_length);
 echo("spring height = ",spring_height);
@@ -136,7 +137,7 @@ cable_tie_hole();
 //translate([filament_x,0,filament_height])
 //rotate([90,0,0])cylinder(r=filament_diameter/2,h=2*motor_width,$fn=resolution,center=true);
 
-module dustbox_middle() {translate([filament_x,motor_width/2-dustbox_width/2+dustbox_above_motor,dustbox_height/2])
+module dustbox_middle() {translate([filament_x,motor_width/2-dustbox_width/2+dustbox_above_motor,dustbox_height/2+0.1])
 cube([dustbox_width-dustbox_wall_thickness*2,dustbox_width-dustbox_wall_thickness*2,dustbox_height],center=true);};
 
 ////filment guide
@@ -185,20 +186,20 @@ cube([2*(hot_end_radius+0.2)+hot_end_mount_wall_width*2,motor_width/2-bearing_ou
 		translate([filament_x-(hot_end_radius+0.2+hot_end_mount_wall_width),-motor_width/2,filament_height+hot_end_mount_above_semicircle])
 		cube([2*(hot_end_radius+0.2)+hot_end_mount_wall_width*2,motor_width/2-bearing_outer_radius-1,50]);
 		
-		//tip lip cylinder
-		translate([filament_x,-bearing_outer_radius-gap_between_hot_end_and_bearing+0.2,filament_height])
+		//top lip cylinder
+		translate([filament_x,-motor_width/2+hot_end_bottom_lip+hot_end_inner_gap+hot_end_top_lip,filament_height])
 		rotate([90,0,0])
 		cylinder(r=hot_end_radius+0.2,h=hot_end_top_lip,$fn=resolution);
 
 		//central cylinder
-		translate([filament_x,-bearing_outer_radius-gap_between_hot_end_and_bearing-(hot_end_inner_gap)/2,filament_height])
+		translate([filament_x,-motor_width/2+hot_end_bottom_lip+hot_end_inner_gap,filament_height])
 		rotate([90,0,0])
-		cylinder(r=hot_end_inner_radius+0.2,h=hot_end_inner_gap+1,$fn=resolution);
+		cylinder(r=hot_end_inner_radius+0.2,h=hot_end_inner_gap,$fn=resolution);
 
 		//bottom lip cylinder
-		translate([filament_x,-bearing_outer_radius-gap_between_hot_end_and_bearing-hot_end_top_lip-(hot_end_inner_gap-0.2),filament_height])
+		translate([filament_x,-motor_width/2+hot_end_bottom_lip,filament_height])
 		rotate([90,0,0])
-		cylinder(r=hot_end_radius+0.2,h=motor_width/2-hot_end_top_lip-hot_end_inner_gap+2,$fn=resolution);		
+		cylinder(r=hot_end_radius+0.2,h=hot_end_bottom_lip+0.2,$fn=resolution);		
 
 		//cable tie hole
 		cable_tie_hole();
@@ -206,8 +207,9 @@ cube([2*(hot_end_radius+0.2)+hot_end_mount_wall_width*2,motor_width/2-bearing_ou
 		//mount screw hole
 		translate([motor_mount_hole_spacing/2,-motor_mount_hole_spacing/2,0]){
 		cylinder(r=motor_mount_screw_head_radius,h=7,$fn=resolution);
+
 		//hole for alan key
-		cylinder(r=1.2,h=filament_height+hot_end_mount_above_semicircle,$fn=resolution);};
+		cylinder(r=1.3,h=filament_height+hot_end_mount_above_semicircle,$fn=resolution);};
 };
 };
 
