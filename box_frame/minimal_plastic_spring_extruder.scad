@@ -30,7 +30,7 @@ spring_stretch = 0.5;
 hot_end_radius = 8;
 hot_end_inner_radius = 6;
 hot_end_top_lip = 3.75;
-hot_end_inner_gap = 6;
+hot_end_inner_gap = 5.7;
 hot_end_bottom_lip = 3;
 hot_end_mount_height = 12.75;
 hot_end_mount_wall_width = 4;
@@ -69,7 +69,7 @@ width = 1.5;
 //height = 3.5;
 spring_height = 5;
 // Circles are n-gons.  Choose n
-resolution = 10;
+resolution = 100;
 
 echo("spring length = ",spring_length);
 echo("spring height = ",spring_height);
