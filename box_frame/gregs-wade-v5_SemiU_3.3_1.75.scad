@@ -192,7 +192,7 @@ hole_for_608=22.5;
 block_top_right=[wade_block_width,wade_block_height];
 
 layer_thickness=0.3; //0.35;
-filament_diameter=1.75;
+filament_diameter=4;//for 2mm ID 4mm OD PFTE tube for 1.75mm filament
 filament_feed_hole_d=(filament_diameter*1.1)/cos(180/8);
 //hobbing_depth=2;
 hobbing_depth=1;
