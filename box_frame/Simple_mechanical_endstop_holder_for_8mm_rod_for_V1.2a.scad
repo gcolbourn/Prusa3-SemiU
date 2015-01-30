@@ -30,7 +30,8 @@ module m3withTolerance(length = 30) {
 		cube([2,3.5,6], center=true);
 		rotate([60,0,0]) cube([2.1,3.5,6], center=true);
 		rotate([120,0,0]) cube([2.1,3.5,6], center=true);
-		rotate([0, 90, 180]) cylinder(h = length + 0.1, r = 1.6, $fn= 20);
+//		rotate([0, 90, 180]) cylinder(h = length + 0.1, r = 1.6, $fn= 20);
+		rotate([0, 90, 0])cylinder(h = length + 0.1, r = 1.6, $fn= 20);
 	}
 }
 
@@ -54,14 +55,32 @@ module mainBody(wall = 4, rod = 8, h = 10) {
 		}
 		//holes for m3 screws with spaces for nuts
 		color([1,0,0]) {
+//			translate([outerRadius,shortLeg - 5,height - 5])
+//				m3withTolerance(outerRadius*2);
+//
+//			translate([outerRadius,shortLeg - 5,height - 5])
+//		union() {
+//		cube([2,3.5,6], center=true);
+//		rotate([60,0,0]) cube([2.1,3.5,6], center=true);
+//		rotate([120,0,0]) cube([2.1,3.5,6], center=true);
+//		rotate([0, 90, 180]) cylinder(h = 30 + 0.1, r = 1.6, $fn= 20);}
 			translate([outerRadius,shortLeg - 5,height - 5])
 				m3withTolerance(outerRadius*2);
+			translate([outerRadius - mainWall*2 + 1 - rodDiameter,shortLeg - 5,height - 5])
+				m3withTolerance(outerRadius*2);
 		
-			translate([outerRadius,longLeg - 4,height - 5])
+//			translate([outerRadius,longLeg - 4,height - 5])
+//				m3withTolerance(outerRadius*2);
+//			translate([outerRadius,longLeg - 4 - endstopSpacing,height - 5])
+//				m3withTolerance(outerRadius*2);
+//			translate([outerRadius,longLeg - 4 - endstopSpacing2,height - 5])
+//				m3withTolerance(outerRadius*2);
+
+			translate([innerRadius - 0.5,longLeg - 4,height - 5])
 				m3withTolerance(outerRadius*2);
-			translate([outerRadius,longLeg - 4 - endstopSpacing,height - 5])
+			translate([innerRadius - 0.5,longLeg - 4 - endstopSpacing,height - 5])
 				m3withTolerance(outerRadius*2);
-			translate([outerRadius,longLeg - 4 - endstopSpacing2,height - 5])
+			translate([innerRadius - 0.5,longLeg - 4 - endstopSpacing2,height - 5])
 				m3withTolerance(outerRadius*2);
 		}
 	}
