@@ -21,21 +21,20 @@ bearing_height = max ((bushing_z[2] > 30 ? x_box_height : (2 * bushing_z[2] + 8)
 module x_end_motor(){
 
     mirror([0, 1, 0]) {
+        
 
         x_end_base([3, 3, min((bushing_xy[0] - 3) * 2, 3), 2], len=42, offset=-5, thru=false);
 
 //z endstop adjuster
             rotate([0,0,180]){
-            translate([19.7, 14, x_box_height-5]) {               
+            translate([19.7+6.5, -6-4, x_box_height-5]) {               
                 difference(){
-			cube_fillet([23, 10, 10], center = true, vertical=[8, 0, 0, 5]);
+			cube_fillet([13, 10, 10], center = true, vertical=[5, 0, 0, 5]);
               translate([7, -1, 0]) rotate([0, 0, 0]){
                 //m3 bolt
-                translate([0, 0, -10]) cylinder(h=(4.1 / 2 + 35), r=1.35, $fn=32);
-                //m3 nut
-//                translate([0, 0, -1]) cylinder(r=2.9, h=9.1, center = true, $fn=6);
-//               translate([0, 0, 2]) cylinder(r=2.9, h=9.1, center = true, $fn=6);
-        translate([11, 0, -2]) rotate([0,50,0]) cube([15, 20, 40], center=true);
+                translate([-6, 1, -10]) cylinder(h=(4.1 / 2 + 35), r=1.35, $fn=32);
+              
+        translate([11-6, 0, -2]) rotate([0,50,0]) cube([15, 20, 40], center=true);
 
 					}
 				}
@@ -65,11 +64,20 @@ module x_end_motor(){
                 //motor mounting holes
                 translate([-29.5, 0, 0]) rotate([0, 0, 0])  rotate([0, 90, 0]) nema17(places=[1, 1, 0, 1], holes=true, shadow=5.5, $fn=small_hole_segments, h=8);
             }
+
+        //x endstop slot
+        translate([-x_box_width-4, 21, 29.5 - (41/2)]) 
+        cube([2.5, 7, 41]); 
         }
         //smooth rod caps
         //translate([-22, -10, 0]) cube([17, 2, 15]);
         //translate([-22, -10, 45]) cube([17, 2, 10]);
+        
+        //x endstop slot
+ //       translate([-x_box_width-4, 21, 29.5 - (40.5/2)]) 
+   //     cube([2.5, 7, 40.5]); 
     }
+
 }
 
 module x_end_base(vfillet=[3, 3, 3, 3], thru=true, len=40, offset=0){
@@ -133,9 +141,14 @@ v = [-14,0, 29];
 
             }
         }
+                //window
+        translate([-0- x_box_width, 11, 29.5 - (25/2)]) 
+        cube_fillet([x_box_width + 4, 11, 1.5 + 25],radius=2,top=[2,2,2,2],bottom=[2,2,2,2]);
+ 
     }
     //threaded rod
     translate([0, 17, 0]) %cylinder(h = 70, r=2.5+0.2);
+
 }
 
 module x_end_idler(){
@@ -193,7 +206,7 @@ difference(){
     difference() {
         x_end_base(len=48 + z_delta / 3, offset=-10 - z_delta / 3);
         // idler hole
-        translate([-20, -15 - z_delta / 2, 30]) {
+      translate([-20, -15 - z_delta / 2, 30]) {
             rotate([0, 90, 0]) cylinder(r=m4_diameter / 2, h=33, center=true, $fn=small_hole_segments);
 //            translate([15 - 2 * single_wall_width, 0, 0]) rotate([90, 0, 90]) cylinder(r=m4_nut_diameter_horizontal / 2, h=3, $fn=6);
     }
@@ -201,10 +214,12 @@ translate([-40, -27 - z_delta / 2, 30 + m4_diameter / 2]) {
             rotate([0, 90, 0]) cube([m4_diameter,15,35]);}
 
 
+//window
+        translate([-8 - x_box_width, 11, 29.5 - (25/2)]) 
+        cube_fillet([x_box_width + 4, 11, 1.5 + 25],radius=2,top=[2,2,2,2],bottom=[2,2,2,2]);
 
-        translate([-6 - x_box_width, 11, 29.5 - (max(idler_bearing[0], 16) / 2)]) cube([x_box_width + 1, 11, 1.5 + max(idler_bearing[0], 16)]);
-    }
-        %translate([-14, -9, 30.5 - (max(idler_bearing[0], 16) / 2)]) x_tensioner();
+   }
+ //       %translate([-14, -9, 30.5 - (max(idler_bearing[0], 16) / 2)]) x_tensioner();
 
 
 }
@@ -215,10 +230,17 @@ translate([-40, -27 - z_delta / 2, 30 + m4_diameter / 2]) {
 
 
 //translate([-40, 0, 4 - bushing_xy[0]]) x_tensioner();
-translate([0, -80, 0]) mirror([1, 0, 0]) x_end_idler(thru=true);
-translate([-50, 0, 0]) mirror([1, 0, 0]) translate([-50, 0, 0])
-    x_end_motor();
-
+translate([0, -80, 0]) mirror([0, 0, 0]) x_end_idler(thru=true);
+translate([0, 0, 0]) mirror([0, 0, 0]) translate([0, 0, 0])
+    difference(){
+        x_end_motor();
+        //x endstop slot
+        mirror([1, 0, 0])
+        translate([-x_box_width-4+42, 21-50, 29.5 - (40.5/2)]) 
+        cube([2, 7, 40.5]); 
+    }
+    
+    
 module pushfit_rod(diameter, length){
     cylinder(h = length, r=diameter/2, $fn=30);
     translate([0, -diameter/4, length/2]) cube_fillet([diameter, diameter/2, length], vertical = [0, 0, 1, 1], center = true, $fn=4);
@@ -236,3 +258,4 @@ module pushfit_rod(diameter, length){
 //            render()bearing_guide_outer();
 //    }
 //}
+//        cube_fillet([x_box_width + 1, 11, 1.5 + max(idler_bearing[0], 16)],radius=1,top=[1,1,1,1],bottom=[1,1,1,1]);

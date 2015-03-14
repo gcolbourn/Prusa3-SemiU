@@ -55,7 +55,7 @@ mirror([0,0,1]){
     difference(){
         union(){
                 z_isolator_base();
-                translate([0, width-7, height-6]) cube_fillet([25,7,6],radius=2);};
+                translate([0, width-8, height-6]) cube_fillet([25,8,6],vertical=[2,2,0,4]);};
         translate([12.5, width, height-5]) rotate([0,0,90]) oval(w=10,h=10,heightofoval=3.5);
                 };
         difference(){
