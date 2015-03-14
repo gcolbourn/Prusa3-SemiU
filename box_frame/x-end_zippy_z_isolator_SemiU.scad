@@ -12,6 +12,10 @@ use <inc/bearing-guide.scad>
 use <inc/bearing_new.scad>
 use <y-drivetrain.scad>
 
+module oval(w,h, heightofoval, center = false) {
+  scale([1, h/w, 1]) cylinder(h=heightofoval, r=w, center=center);
+};
+
 //height and width of the x blocks depend on x smooth rod radius
 x_box_height = 52 + 2 * bushing_xy[0];
 x_box_width = (bushing_xy[0] <= 4) ? 17.5 : bushing_xy[0] * 2 + 9.5;
@@ -27,14 +31,14 @@ module x_end_motor(){
 
 //z endstop adjuster
             rotate([0,0,180]){
-            translate([19.7+6.5, -6-4, x_box_height-5]) {               
+            translate([19.7+6.5, -6-4, 1.5]) {               
                 difference(){
-			cube_fillet([13, 10, 10], center = true, vertical=[5, 0, 0, 5]);
+			cube_fillet([8, 10, 3], center = true, vertical=[5, 0, 0, 5]);
               translate([7, -1, 0]) rotate([0, 0, 0]){
                 //m3 bolt
-                translate([-6, 1, -10]) cylinder(h=(4.1 / 2 + 35), r=1.35, $fn=32);
+                translate([-7, 1, -10]) cylinder(h=(4.1 / 2 + 35), r=1.35, $fn=32);
               
-        translate([11-6, 0, -2]) rotate([0,50,0]) cube([15, 20, 40], center=true);
+        //translate([11-6, 0, -2]) rotate([0,50,0]) cube([15, 20, 40], center=true);
 
 					}
 				}
@@ -98,11 +102,11 @@ v = [-14,0, 29];
                 
                 //z isolator platform
 
-            translate([-2, 17, x_box_height-7.5]) {               
+            translate([-2, 17, 4]) {               
                 difference(){
-			cube_fillet([18.5, 15, 15], center = true, radius=3);
-              translate([7, -1, 0]) rotate([0, 0, 0]){
-        translate([2, 0, -9]) rotate([0,50,0]) cube([20, 20, 40], center=true);
+			cube_fillet([18.5, 15, 8], center = true, radius=3);
+              translate([14.5, -4, 3]) rotate([90,0,135]){
+        translate([0, 0, -9]) rotate([0,45,0]) oval(w=12,h=5, heightofoval=18);
 
 					}
 				}
@@ -137,7 +141,7 @@ v = [-14,0, 29];
                 translate([0, 0, -1]) cylinder(h=100, r=4, $fn=32);
 
                 //nut
-                translate([0, 0, 9]) cylinder(r=4.6, h=14.1, center = true, $fn=6);
+                //translate([0, 0, 9]) cylinder(r=4.6, h=14.1, center = true, $fn=6);
 
             }
         }
@@ -238,6 +242,18 @@ translate([0, 0, 0]) mirror([0, 0, 0]) translate([0, 0, 0])
         mirror([1, 0, 0])
         translate([-x_box_width-4+42, 21-50, 29.5 - (40.5/2)]) 
         cube([2, 7, 40.5]); 
+    }
+        //drag-chain connector
+                    translate([-x_box_width-4, -17, x_box_height+16/2-3]) {               
+                difference(){
+                    union(){
+			  cube_fillet([3, 18, 16], center = true, vertical=[2, 2, 2, 2],top=[2, 2, 2, 2]);
+              translate([x_box_width-2.7,0,0]) cube_fillet([3, 16, 16], center = true, vertical=[2, 2, 2, 2],top=[2, 2, 2, 2]);
+                    }
+                //mount hole
+                translate([-15, -1, 0]) rotate([0,90,0]) cylinder(h=(35), r=2.7, $fn=32);
+              //translate([11, 0, -8]) rotate([0,50,0]) cube([15, 20, 40], center=true);
+                    }
     }
     
     
