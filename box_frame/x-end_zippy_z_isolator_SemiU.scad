@@ -248,7 +248,7 @@ translate([0, 0, 0]) mirror([0, 0, 0]) translate([0, 0, 0])
                 difference(){
                     union(){
 			  cube_fillet([3, 18, 16], center = true, vertical=[2, 2, 2, 2],top=[2, 2, 2, 2]);
-              translate([x_box_width-2.7,0,0]) cube_fillet([3, 16, 16], center = true, vertical=[2, 2, 2, 2],top=[2, 2, 2, 2]);
+              translate([x_box_width-2.7,0,0]) cube_fillet([3, 18, 16], center = true, vertical=[2, 2, 2, 2],top=[2, 2, 2, 2]);
                     }
                 //mount hole
                 translate([-15, -1, 0]) rotate([0,90,0]) cylinder(h=(35), r=2.7, $fn=32);
