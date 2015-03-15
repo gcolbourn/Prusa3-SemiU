@@ -15,7 +15,7 @@ m5_hole_r=3.1;
 m5_hole_height=4.2;
 m8_hole_r=5;
 m5holedist=7.5;
-m5_nut_trap_width=8.2;
+m5_nut_trap_width=8.5;
 x_platform_width=13;
 
 module oval(w,h, heightofoval, center = false) {
@@ -29,7 +29,7 @@ module z_isolator_base(){
     translate([m5holedist, m5holedist, 0]) cylinder(r=m5_hole_r,h=height);
     for ( i = [-1,1] ){
     translate([m5holedist,m5holedist/2,height/2+i*10/3]) cube([m5_nut_trap_width,m5holedist,m5_hole_height],center=true);
-    translate([m5holedist,m5holedist+0.5,height/2+i*10/3]) rotate([0,0,30]) cylinder(r=4.7, h=m5_hole_height, center = true, $fn=6);};
+    translate([m5holedist,m5holedist+0.5,height/2+i*10/3]) rotate([0,0,30]) cylinder(r=4.9, h=m5_hole_height, center = true, $fn=6);};
 }
 
 difference(){
