@@ -244,7 +244,7 @@ translate([0, 0, 0]) mirror([0, 0, 0]) translate([0, 0, 0])
         cube([2, 7, 40.5]); 
     }
         //drag-chain connector
-                    translate([-x_box_width-4, -17, x_box_height+16/2-3]) {               
+                    translate([-x_box_width-4, 6, x_box_height+16/2-3]) {               
                 difference(){
                     union(){
 			  cube_fillet([3, 18, 16], center = true, vertical=[2, 2, 2, 2],top=[2, 2, 2, 2]);
