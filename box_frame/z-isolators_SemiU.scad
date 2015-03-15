@@ -10,7 +10,7 @@ use <y-drivetrain.scad>
 height=16;
 width=28;
 length=37;
-m5tom8dist=17;
+m5tom8dist=16.5;
 m5_hole_r=3.1;
 m5_hole_height=4.2;
 m8_hole_r=5;
@@ -34,19 +34,27 @@ module z_isolator_base(){
 
 difference(){
     translate([0, 0, 3]) cube_fillet([length-3,width,height-3],bottom=[3,3,3,3],radius=3);
-    translate([m5holedist*2, 0, 0]) cube_fillet([length,width-x_platform_width,height],radius=3);
-    translate([0, -3, 0]) cube([length,width-x_platform_width,height]);
+    //translate([m5holedist*2, 0, 0]) cube_fillet([length,width-x_platform_width,height],radius=3);
+    //translate([0, -3, 0]) cube([length,width-x_platform_width,height]);
     translate([0, width, 0]) rotate([0,90,0]) oval(w=height-3,h=width-2*(m8_hole_r+3), heightofoval=length);
     translate([length, width, 0]) rotate([90,0,0]) oval(w=length-2*m5holedist+0.5,h=height-3,heightofoval=length);
+        translate([m5holedist, m5holedist, 0]) cylinder(r=m5_hole_r,h=height);
+    for ( i = [-1,1] ){
+    translate([m5holedist,m5holedist/2,height/2+i*10/3]) cube([m5_nut_trap_width,m5holedist,m5_hole_height],center=true);
+    translate([m5holedist,m5holedist+0.5,height/2+i*10/3]) rotate([0,0,30]) cylinder(r=4.9, h=m5_hole_height, center = true, $fn=6);};
+    //m8 rod guide
+    translate([m5holedist+m5tom8dist,m5holedist,0]) cylinder(r=m8_hole_r,h=height);
+    translate([m5holedist+m5tom8dist,m5holedist-m8_hole_r,0]) cube([width,m8_hole_r*2,height]);
+
 };
 
-translate([length-10,width-m5holedist*2+2,height-3.2]) cube_fillet([10,width-m5holedist*2,3.2],radius=3);
+//translate([length-10,width-m5holedist*2+2,height-3.2]) cube_fillet([10,width-m5holedist*2,3.2],radius=3);
 
 }
 
-mirror([0,0,1]){
-z_isolator_base();
-}
+//mirror([0,0,1]){
+//z_isolator_base();
+//}
 
 translate([0,-5,0])
 
