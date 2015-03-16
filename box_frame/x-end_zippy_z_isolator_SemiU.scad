@@ -244,11 +244,11 @@ translate([0, 0, 0]) mirror([0, 0, 0]) translate([0, 0, 0])
         cube([2, 7, 40.5]); 
     }
         //drag-chain connector
-                    translate([-x_box_width-5, -17, x_box_height+16/2-3]) {               
+                    translate([-x_box_width-4.3, 6, x_box_height+16/2-3]) {               
                 difference(){
                     union(){
 			  cube_fillet([2, 18, 16], center = true, vertical=[2, 2, 2, 2],top=[2, 2, 2, 2]);
-              translate([x_box_width-1,0,0]) cube_fillet([2, 18, 16], center = true, vertical=[2, 2, 2, 2],top=[2, 2, 2, 2]);
+              translate([x_box_width-2.15,0,0]) cube_fillet([2, 18, 16], center = true, vertical=[2, 2, 2, 2],top=[2, 2, 2, 2]);
                     }
                 //mount hole
                 translate([-15, -1, 0]) rotate([0,90,0]) cylinder(h=(35), r=2.7, $fn=32);
