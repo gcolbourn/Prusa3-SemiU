@@ -10,10 +10,10 @@ use <y-drivetrain.scad>
 height=16;
 width=28;
 length=37;
-m5tom8dist=17.5;
+m5tom8dist=17.3;
 m5_hole_r=3.1;
 m5_hole_height=4.2;
-m8_hole_r=4.1;
+m8_hole_r=4.2;
 m5holedist=7.5;
 m5_nut_trap_width=8.5;
 x_platform_width=13;
@@ -54,7 +54,13 @@ difference(){
 }
 
 mirror([0,0,1]){
-z_isolator_base();
+            union(){
+                    z_isolator_base();
+                    for ( i = [-1,1] ){
+                                    translate([m5holedist,m5holedist,height/2+i*10/3-m5_hole_height/2]) 
+                                    cube([m5_nut_trap_width,m5holedist*2,0.2],center=true);
+                                  };
+                     };
 }
 
 translate([0,-5,0])
@@ -64,7 +70,12 @@ mirror([0,0,1]){
     difference(){
         union(){
                 z_isolator_base();
-                translate([0, width-8, height-6]) cube_fillet([25,8,6],vertical=[2,2,0,4]);};
+                translate([0, width-8, height-6]) cube_fillet([25,8,6],vertical=[2,2,0,4]);
+                for ( i = [-1,1] ){
+                                    translate([m5holedist,m5holedist,height/2+i*10/3-m5_hole_height/2]) 
+                                    cube([m5_nut_trap_width,m5holedist*2,0.2],center=true);
+                                  };
+    };
         translate([12.5, width, height-5]) rotate([0,0,90]) oval(w=10,h=10,heightofoval=3.5);
                 };
         difference(){
