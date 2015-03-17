@@ -57,7 +57,7 @@ mirror([0,0,1]){
             union(){
                     z_isolator_base();
                     for ( i = [-1,1] ){
-                                    translate([m5holedist,m5holedist,height/2+i*10/3-m5_hole_height/2]) 
+                                    translate([m5holedist,m5holedist,height/2+i*10/3-m5_hole_height/2-0.1]) 
                                     cube([m5_nut_trap_width,m5holedist*2,0.2],center=true);
                                   };
                      };
@@ -70,17 +70,23 @@ mirror([0,0,1]){
     difference(){
         union(){
                 z_isolator_base();
-                translate([0, width-8, height-6]) cube_fillet([25,8,6],vertical=[2,2,0,4]);
+ //               translate([0, width-8, height-6]) cube_fillet([25,8,6],vertical=[2,2,0,4]); //cable tie mount
+                translate([0, width-10, height-6]) cube_fillet([27,10,6],vertical=[2,2,0,12]); //m3x10 mount
                 for ( i = [-1,1] ){
-                                    translate([m5holedist,m5holedist,height/2+i*10/3-m5_hole_height/2]) 
+                                    translate([m5holedist,m5holedist,height/2+i*10/3-m5_hole_height/2-0.1]) 
                                     cube([m5_nut_trap_width,m5holedist*2,0.2],center=true);
                                   };
     };
-        translate([12.5, width, height-5]) rotate([0,0,90]) oval(w=10,h=10,heightofoval=3.5);
-                };
-        difference(){
-               translate([12.5, width, height-5]) rotate([0,0,90]) oval(w=8,h=8,heightofoval=3.5);
-            translate([0, width, height-5]) cube([25,10,10]);
+    //cable tie endstop mount
+//        translate([12.5, width, height-5.25]) rotate([0,0,90]) oval(w=10,h=10,heightofoval=3);
+//                };
+//        difference(){
+//               translate([12.5, width, height-5.25]) rotate([0,0,90]) oval(w=8.5,h=8.5,heightofoval=3);
+//            translate([0, width, height-5.25]) cube([25,10,10]);
+    //M3x10 endstop mount
+    for ( i = [0,1] ){
+        translate([4+i*19, width, height-5.25+0.2+1.4]) rotate([90,0,0]) cylinder(r=1.4,h=10,$fn=32);
+    }
             }
 }
 }
