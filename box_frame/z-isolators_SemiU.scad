@@ -53,17 +53,17 @@ difference(){
 
 }
 
-//mirror([0,0,1]){
-//            union(){
-//                    z_isolator_base();
-//                    for ( i = [-1,1] ){
-//                                    translate([m5holedist,m5holedist,height/2+i*5.5-m5_hole_height/2-0.1]) 
-//                                    cube([m5_nut_trap_width,m5holedist*2,0.2],center=true);
-//                                  };
-//                     };
-//}
-//
-//translate([0,-5,0])
+mirror([0,0,1]){
+            union(){
+                    z_isolator_base();
+                    for ( i = [-1,1] ){
+                                    translate([m5holedist,m5holedist,height/2+i*5.5-m5_hole_height/2-0.1]) 
+                                    cube([m5_nut_trap_width,m5holedist*2,0.2],center=true);
+                                  };
+                     };
+}
+
+translate([0,-5,0])
 
 mirror([0,1,0]){
 mirror([0,0,1]){
