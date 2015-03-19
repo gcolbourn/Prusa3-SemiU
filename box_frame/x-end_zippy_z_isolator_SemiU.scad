@@ -31,12 +31,12 @@ module x_end_motor(){
 
 //z endstop adjuster
             rotate([0,0,180]){
-            translate([19.7+6.5, -6-4, 1.5]) {               
+            translate([19.7+6.5, -16, 1.5]) {               
                 difference(){
 			cube_fillet([8, 10, 3], center = true, vertical=[5, 0, 0, 5]);
               translate([7, -1, 0]) rotate([0, 0, 0]){
                 //m3 bolt
-                translate([-7, 1, -10]) cylinder(h=(4.1 / 2 + 35), r=1.35, $fn=32);
+                translate([-7, 1, -10]) cylinder(h=(4.1 / 2 + 35), r=1.4, $fn=32);
               
         //translate([11-6, 0, -2]) rotate([0,50,0]) cube([15, 20, 40], center=true);
 
