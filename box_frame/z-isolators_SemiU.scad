@@ -12,10 +12,10 @@ width=28;
 length=37;
 m5tom8dist=17.3;
 m5_hole_r=2.8;
-m5_hole_height=4.2;
+m5_hole_height=4.15; //should be 4
 m8_hole_r=4.2;
 m5holedist=7.5;
-m5_nut_trap_width=8.5;
+m5_nut_trap_width=8.4; //should be 8
 x_platform_width=13;
 
 module oval(w,h, heightofoval, center = false) {
