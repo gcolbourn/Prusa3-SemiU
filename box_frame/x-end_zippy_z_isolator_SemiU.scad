@@ -105,8 +105,8 @@ v = [-14,0, 29];
             translate([-2, 17, 4]) {               
                 difference(){
 			cube_fillet([18.5, 15, 8], center = true, radius=3);
-              translate([14.5, -4, 3]) rotate([90,0,135]){
-        translate([0, 0, -9]) rotate([0,45,0]) oval(w=12,h=5, heightofoval=18);
+              translate([13.5, -4, 3]) rotate([90,0,135]){
+        translate([0, 0, -8]) rotate([0,45,0]) oval(w=12,h=4, heightofoval=20);
 
 					}
 				}
